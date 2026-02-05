@@ -109,16 +109,22 @@ body{
 
 /* Footer */
 .footer{
-  height:40px;
-  background:var(--blue2);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 14px;
-  font-size:12px;
+  height: 40px;
+  background: #0a6c9b;
+  color: #fff;                 /* ← чтобы текст был белый */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* ← чтобы элементы шли слева */
+  gap: 32px;                   /* ← расстояние как на макете */
+  padding: 0 14px;
+  font-size: 12px;
 }
-.footer__right{opacity:.9}
+
+.footer__right{
+  margin-left: auto;
+  opacity: 0.9;
+}
+
 
 .column__footer{
   margin-top: 10px;

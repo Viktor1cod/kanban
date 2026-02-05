@@ -13,21 +13,21 @@ export default function App() {
     return saved ? JSON.parse(saved) : dataMock;
   });
 
+
+
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(columns));
   }, [columns]);
 
-  const { activeCount, finishedCount } = useMemo(() => {
-    let active = 0;
-    let finished = 0;
-    for (const col of columns) {
-      for (const issue of col.issues) {
-        if (col.id === "finished") finished++;
-        else active++;
-      }
-    }
-    return { activeCount: active, finishedCount: finished };
-  }, [columns]);
+ 
+  const activeCount =
+  columns.find((c) => c.id === "backlog")?.issues.length ?? 0;
+
+const finishedCount =
+  columns.find((c) => c.id === "finished")?.issues.length ?? 0;
+
+
+  
 
   return (
     <Routes>
@@ -38,7 +38,7 @@ export default function App() {
             <header className="topbar">
               <div className="topbar__title">Awesome Kanban Board</div>
               <button className="avatarBtn" type="button" title="Profile">
-                <span className="avatarIcon">👤</span>
+                <span className="avatarIcon"></span>
               </button>
             </header>
 
@@ -47,9 +47,9 @@ export default function App() {
             </main>
 
             <footer className="footer">
-              <div>Active tasks: &lt;{activeCount}&gt;</div>
-              <div>Finished tasks: &lt;{finishedCount}&gt;</div>
-              <div className="footer__right">Kanban board by &lt;NAME&gt;, &lt;YEAR&gt;</div>
+                <div>Active tasks: &lt;{activeCount}&gt;</div>
+                <div>Finished tasks: &lt;{finishedCount}&gt;</div>
+                <div className="footer__right">Kanban board by &lt;NAME&gt;, &lt;YEAR&gt;</div>
             </footer>
           </div>
         }
