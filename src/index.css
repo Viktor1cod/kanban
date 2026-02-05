@@ -1,13 +1,164 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root{
+  --blue:#0b75a8;
+  --blue2:#0a6c9b;
+  --white:#fff;
+  --soft:#f3f6f8;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  background: #eaeaea;
+}
+
+.page{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+
+/* Top bar */
+.topbar{
+  height:52px;
+  background:var(--blue2);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 14px;
+}
+.topbar__title{
+  font-weight:800;
+  font-size:26px;
+}
+.avatarBtn{
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  border:1px solid #ffffff40;
+  background:#ffffff1f;
+  color:#fff;
+  cursor:pointer;
+}
+.avatarBtn:hover{background:#ffffff2a}
+.avatarIcon{font-size:16px}
+
+/* Board area */
+.boardWrap{
+  flex:1;
+  background:var(--blue);
+  padding:14px;
+  overflow:auto;
+}
+
+.board{
+  display:grid;
+  grid-template-columns:repeat(4, minmax(220px, 1fr));
+  gap:18px;
+  align-items:start;
+}
+
+/* Column */
+.column{
+  background:#ffffff1a;
+  border:1px solid #ffffff22;
+  border-radius:10px;
+  padding:10px;
+  min-height:180px;
+}
+.column__title{
+  background:#ffffffee;
+  border-radius:8px;
+  padding:8px 10px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+.column__list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  min-height:40px;
+}
+
+/* Card (как на 2-й: тонкие, белые) */
+.card{
+  background:#fff;
+  border:1px solid #00000010;
+  border-radius:6px;
+  padding:6px 8px;
+  font-size:12px;
+  line-height:1.2;
+  box-shadow:0 1px 0 #00000012;
+}
+
+/* Add card button (тонкая ссылка) */
+.addCardBtn{
+  width:100%;
+  margin-top:10px;
+  padding:7px 10px;
+  border-radius:8px;
+  border:1px dashed #ffffff55;
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+  font-size:12px;
+}
+.addCardBtn:hover{background:#ffffff14}
+
+/* Footer */
+.footer{
+  height:40px;
+  background:var(--blue2);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 14px;
+  font-size:12px;
+}
+.footer__right{opacity:.9}
+
+.column__footer{
+  margin-top: 10px;
+}
+
+.addCardForm{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.input{
+  width:100%;
+  border-radius:8px;
+  border:1px solid #00000020;
+  padding:8px 10px;
+  font:inherit;
+}
+
+.addCardActions{
+  display:flex;
+  gap:8px;
+}
+
+.btn{
+  background:#0b75a8;
+  border:1px solid #ffffff30;
+  color:#fff;
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.btn.ghost{
+  background:#ffffff22;
+}
+
+
+/* Responsive */
+@media (max-width: 900px){
+  .board{grid-template-columns:1fr}
 }
