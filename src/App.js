@@ -1,10 +1,20 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { dataMock } from "./mock/dataMock";
 import Board from "./components/Board";
 import "./index.css";
 
 export default function App() {
-  const [columns, setColumns] = useState(dataMock);
+
+const STORAGE_KEY = "kanban-data";
+
+const [columns, setColumns] = useState(() => {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  return saved ? JSON.parse(saved) : dataMock;
+});
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(columns));
+  }, [columns]);
 
   const { activeCount, finishedCount } = useMemo(() => {
     let active = 0;
@@ -42,3 +52,6 @@ export default function App() {
     </div>
   );
 }
+
+
+

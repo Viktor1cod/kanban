@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useState, useMemo } from "react";
 import Card from "./Card";
+
 
 export default function Column({ column, columns, setColumns }) {
   // Add card
