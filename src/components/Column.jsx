@@ -49,7 +49,6 @@ export default function Column({ column, columns, setColumns }) {
     return opts;
   }, [columns, column.id]);
 
-  // Перенос выбранной задачи в текущую колонку
   const moveHere = (issueId) => {
     if (!issueId) return;
 
@@ -57,7 +56,6 @@ export default function Column({ column, columns, setColumns }) {
       let found = null;
       let fromColumnId = null;
 
-      // найдём задачу и колонку-источник
       for (const col of prev) {
         const idx = col.issues.findIndex((i) => i.id === issueId);
         if (idx !== -1) {
@@ -72,11 +70,9 @@ export default function Column({ column, columns, setColumns }) {
 
       return prev.map((col) => {
         if (col.id === fromColumnId) {
-          // удалить из старой
           return { ...col, issues: col.issues.filter((i) => i.id !== issueId) };
         }
         if (col.id === column.id) {
-          // добавить в новую (в конец списка)
           return { ...col, issues: [...col.issues, found] };
         }
         return col;
@@ -96,7 +92,6 @@ export default function Column({ column, columns, setColumns }) {
         ))}
       </div>
 
-      {/* SELECT как на второй картинке */}
       <div className="moveBox">
         <select
           className="moveSelect"
@@ -116,7 +111,6 @@ export default function Column({ column, columns, setColumns }) {
         </select>
       </div>
 
-      {/* Add card как на первой картинке */}
       <div className="column__footer">
         {!isAdding ? (
           <button className="addCardBtn" onClick={() => setIsAdding(true)} type="button">

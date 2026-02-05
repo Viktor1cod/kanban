@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { dataMock } from "./mock/dataMock";
 import Board from "./components/Board";
 import TaskPage from "./pages/TaskPage";
 import "./index.css";
+import Topbar from "./components/Topbar";
 
 const STORAGE_KEY = "kanban-data";
 
@@ -14,19 +15,31 @@ export default function App() {
   });
 
 
-
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(columns));
   }, [columns]);
 
  
   const activeCount =
-  columns.find((c) => c.id === "backlog")?.issues.length ?? 0;
+    columns.find((c) => c.id === "backlog")?.issues.length ?? 0;
 
-const finishedCount =
-  columns.find((c) => c.id === "finished")?.issues.length ?? 0;
+  const finishedCount =
+    columns.find((c) => c.id === "finished")?.issues.length ?? 0;
 
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const userMenuRef = useRef(null);
 
+  useEffect(() => {
+    const onClickOutside = (e) => {
+      if (!userMenuRef.current) return;
+      if (!userMenuRef.current.contains(e.target)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+
+  document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, []);
   
 
   return (
@@ -37,10 +50,28 @@ const finishedCount =
           <div className="page">
             <header className="topbar">
               <div className="topbar__title">Awesome Kanban Board</div>
-              <button className="avatarBtn" type="button" title="Profile">
-                <span className="avatarIcon"></span>
-              </button>
+              <div className="topbar__right" ref={userMenuRef}>
+                  <button
+                    className="userBtn"
+                    type="button"
+                    onClick={() => setIsUserMenuOpen((v) => !v)}
+                  >
+                    <span className="avatarCircle">👤</span>
+                    <span className={isUserMenuOpen ? "chevron up" : "chevron down"} />
+                  </button>
+
+                  {isUserMenuOpen && (
+                    <div className="userMenu">
+                      <button className="userMenuItem" type="button">Profile</button>
+                      <button className="userMenuItem" type="button">Log Out</button>
+                    </div>
+                  )}
+                </div>
             </header>
+
+            
+
+
 
             <main className="boardWrap">
               <Board columns={columns} setColumns={setColumns} />

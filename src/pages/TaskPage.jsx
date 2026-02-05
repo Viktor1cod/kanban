@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Topbar from "../components/Topbar";
 
 export default function TaskPage({ columns, setColumns }) {
   const { id } = useParams();
@@ -19,10 +20,8 @@ export default function TaskPage({ columns, setColumns }) {
   if (!task) {
     return (
       <div className="page">
-        <header className="topbar">
+        <Topbar />
           <div className="topbar__title">Awesome Kanban Board</div>
-        </header>
-
         <main className="boardWrap">
           <div className="taskModal">
             <div className="taskModal__header">
@@ -55,21 +54,15 @@ export default function TaskPage({ columns, setColumns }) {
 
   return (
     <div className="page">
-      <header className="topbar">
-        <div className="topbar__title">Awesome Kanban Board</div>
-        <button className="avatarBtn" type="button" title="Profile">
-          <span className="avatarIcon">👤</span>
-        </button>
-      </header>
-
-      <main className="boardWrap">
-        <div className="taskModal">
-          <div className="taskModal__header">
-            <div className="taskModal__title">{task.name}</div>
-            <button className="iconBtn" onClick={() => navigate("/")} type="button">
-              ✕
-            </button>
-          </div>
+        <Topbar />
+            <main className="boardWrap">
+                <div className="taskModal">
+                    <div className="taskModal__header">
+                        <div className="taskModal__title">{task.name}</div>
+                            <button className="iconBtn" onClick={() => navigate("/")} type="button">
+                                ✕
+                        </button>
+                    </div>
 
           <div className="taskModal__body">
             <textarea
